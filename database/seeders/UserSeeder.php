@@ -18,11 +18,11 @@ class UserSeeder extends Seeder
         $standardRole = Role::where('id', 'R02')->first();
 
         User::updateOrCreate(
-            ['email' => 'bkalilou91@gmail.com'],
+            ['email' => 'bore.younous59@gmail.com'],
             [
-                'nom' => 'Berthé',
-                'prenom' => 'Kalilou',
-                'password' => Hash::make('Berthe@FIER2_2026!'),
+                'nom' => 'Boré',
+                'prenom' => 'Younouss',
+                'password' => Hash::make('12345678'),
                 'id_role' => $adminRole->id,
             ]
         );
