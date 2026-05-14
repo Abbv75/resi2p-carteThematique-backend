@@ -1,0 +1,205 @@
+Document informatif sur le projet RESI-2P
+Présentation générale
+
+Le Programme pour le Renforcement de la Résilience des Petits Producteurs (RESI-2P) est un programme de développement rural mis en œuvre au Burkina Faso sous la tutelle du Ministère de l’Agriculture, des Ressources Animales et Halieutiques (MARAH), avec l’appui du Fonds International de Développement Agricole (FIDA) et de plusieurs partenaires techniques et financiers.
+
+Le programme a été conçu pour répondre aux défis majeurs auxquels sont confrontés les petits producteurs ruraux :
+
+changement climatique,
+insécurité alimentaire,
+dégradation des terres,
+pauvreté rurale,
+faible accès aux marchés et aux infrastructures agricoles.
+
+Le RESI-2P s’inscrit dans la continuité des politiques nationales de développement agricole et de résilience climatique du Burkina Faso.
+
+Objectif général
+
+Le programme vise à :
+
+« Consolider les capacités d’adaptation des populations rurales aux chocs externes et aux effets du changement climatique ».
+
+Son objectif de développement est de :
+
+« Renforcer la résilience des petits exploitants, en particulier des femmes et des jeunes, par des investissements durables visant la sécurité alimentaire et nutritionnelle et l’augmentation des revenus ».
+
+Contexte du projet
+
+Le Burkina Faso fait face à plusieurs défis structurels :
+
+variabilité climatique,
+sécheresses récurrentes,
+baisse de fertilité des sols,
+pression foncière,
+déplacements de populations,
+vulnérabilité des exploitations familiales rurales.
+
+Dans ce contexte, le RESI-2P a été lancé afin de promouvoir :
+
+une agriculture durable,
+des systèmes de production résilients,
+la restauration des terres dégradées,
+l’inclusion économique des femmes et des jeunes.
+Zones d’intervention
+
+Le programme intervient principalement dans :
+
+la région du Nord,
+la région du Centre-Ouest du Burkina Faso.
+
+Le projet couvre :
+
+36 communes,
+dont 20 communes dans le Nord,
+et 16 communes dans le Centre-Ouest.
+Population cible
+
+Le RESI-2P cible principalement :
+
+les petits producteurs agricoles,
+les exploitations familiales rurales,
+les femmes,
+les jeunes,
+les personnes déplacées internes (PDI),
+les personnes en situation de handicap.
+
+Les chiffres annoncés par le programme indiquent :
+
+plus de 36 000 ménages ciblés,
+plus de 200 000 bénéficiaires directs et indirects,
+une forte proportion de femmes et de jeunes ruraux.
+Composantes du programme
+1. Renforcement de la résilience des systèmes de production
+
+Cette composante concerne :
+
+l’aménagement des bas-fonds,
+l’irrigation,
+la restauration des terres,
+les infrastructures hydrauliques,
+la gestion durable des ressources naturelles,
+les techniques agricoles résilientes au climat.
+
+Les actions comprennent notamment :
+
+la réalisation de périmètres maraîchers,
+l’aménagement hydro-agricole,
+les travaux HIMO,
+les champs écoles agropastoraux,
+la gestion intégrée des ravageurs.
+2. Facilitation de l’accès au marché
+
+Le programme soutient :
+
+les microentreprises rurales,
+la transformation agricole,
+le stockage post-récolte,
+la commercialisation,
+le développement des chaînes de valeur agricoles.
+
+Le RESI-2P accompagne également :
+
+les coopératives,
+les groupements de producteurs,
+les initiatives entrepreneuriales rurales.
+3. Coordination, suivi-évaluation et gestion des savoirs
+
+Cette composante couvre :
+
+la gestion du programme,
+le suivi des indicateurs,
+les systèmes d’information,
+les plateformes SIG,
+le reporting,
+la capitalisation des connaissances.
+
+Le programme dispose d’un système numérique de suivi-évaluation permettant de suivre :
+
+les aménagements réalisés,
+les superficies restaurées,
+les bénéficiaires,
+les investissements,
+les indicateurs de performance.
+Financement
+
+Le coût global du programme est estimé à environ :
+
+71,73 milliards FCFA
+soit plus de 116 millions USD.
+
+Le financement provient de plusieurs partenaires :
+
+FIDA,
+GEF (Global Environment Facility),
+Gouvernement du Burkina Faso,
+autres partenaires techniques et financiers.
+Résultats attendus
+
+Le programme ambitionne notamment :
+
+l’augmentation des revenus ruraux,
+l’amélioration de la sécurité alimentaire,
+la restauration des écosystèmes,
+la réduction de la vulnérabilité climatique,
+le développement des infrastructures agricoles,
+la création d’emplois ruraux.
+
+Parmi les indicateurs suivis :
+
+hectares restaurés,
+bassins versants aménagés,
+entreprises rurales accompagnées,
+terres agricoles aménagées,
+bénéficiaires formés.
+Résultats récents observés
+
+Selon les missions conjointes du Gouvernement burkinabè et du FIDA :
+
+plusieurs centaines d’hectares de bas-fonds ont déjà été aménagés,
+plus de 1 200 producteurs ont été formés,
+des infrastructures de stockage et de transformation sont en cours de réalisation,
+des économies importantes ont été générées sur les coûts des aménagements.
+Importance stratégique du projet
+
+Le RESI-2P représente un programme stratégique pour :
+
+la souveraineté alimentaire,
+la résilience climatique,
+le développement rural durable,
+l’inclusion économique des populations vulnérables.
+
+Le projet contribue directement :
+
+aux politiques agricoles nationales,
+à l’offensive agropastorale du Burkina Faso,
+aux objectifs de développement durable (ODD).
+Transformation numérique et SIG
+
+Le programme intègre des outils numériques modernes pour :
+
+le suivi géospatial,
+la cartographie des infrastructures,
+le pilotage des activités,
+la visualisation des indicateurs territoriaux.
+
+Cela explique l’utilisation de technologies telles que :
+
+PostGIS,
+GeoServer,
+QGIS,
+Leaflet,
+tableaux de bord SIG interactifs.
+
+Ces outils permettent un meilleur pilotage des investissements et une prise de décision basée sur les données territoriales.
+
+Conclusion
+
+Le RESI-2P constitue aujourd’hui l’un des programmes majeurs de résilience rurale au Burkina Faso. Grâce à ses investissements dans :
+
+les infrastructures agricoles,
+la restauration des terres,
+l’accompagnement des producteurs,
+l’entrepreneuriat rural,
+et les systèmes numériques de suivi,
+
+le programme contribue au renforcement durable des capacités des communautés rurales face aux effets du changement climatique et aux crises économiques et sociales.
