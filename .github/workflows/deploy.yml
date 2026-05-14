@@ -1,0 +1,33 @@
+name: Deploy Fier2-CarteThematique Backend
+
+on:
+  push:
+    branches:
+      - deploiement
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ${{ secrets.SSH_PATH }}
+
+            git fetch --all
+            git reset --hard origin/deploiement
+
+            export COMPOSER_ALLOW_SUPERUSER=1
+            composer install
+
+            php artisan optimize:clear
+
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            php artisan optimize
