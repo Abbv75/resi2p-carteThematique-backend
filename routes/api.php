@@ -4,6 +4,7 @@ use App\Http\Controllers\ThematiqueController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\GeoserverLayerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,3 +48,5 @@ Route::prefix('maps')->group(function () {
     Route::put('/{id}', [MapController::class, 'update']);
     Route::delete('/{id}', [MapController::class, 'destroy']);
 });
+
+Route::get('/geoserver-layers', [GeoserverLayerController::class, 'index']);
