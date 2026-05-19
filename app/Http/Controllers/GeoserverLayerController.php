@@ -32,6 +32,10 @@ class GeoserverLayerController extends Controller
             $url = "http://158.220.120.218:8080/geoserver/rest/layers.json";
 
             $response = Http::withBasicAuth('admin', 'M8r12p14j3')
+                ->withHeaders([
+                    'Accept' => 'application/json'
+                ])
+                ->timeout(30)
                 ->get($url);
 
             if (!$response->successful()) {

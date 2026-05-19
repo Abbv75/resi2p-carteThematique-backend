@@ -14,11 +14,8 @@ return new class extends Migration
         Schema::create('geoserver_layers', function (Blueprint $table) {
             $table->string('id')->primary();
 
-            // Type du layer (point, polygon, line, raster…)
-            $table->string('type');
-
+            $table->string('type')->comment('type du layer (point, polygon, line, raster…)');
             $table->string('title');
-
             $table->string('name');
             $table->text('openlayerUrl');
 
