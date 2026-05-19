@@ -39,7 +39,6 @@ class ThematiqueApiTest extends TestCase
     public function test_can_create_a_thematique(): void
     {
         $data = [
-            'id' => 'test-thematique',
             'title' => 'Test Title',
             'description' => 'Test Description',
         ];
@@ -51,13 +50,17 @@ class ThematiqueApiTest extends TestCase
                 'success' => true,
                 'message' => 'Thématique créée avec succès',
                 'data' => [
-                    'id' => 'test-thematique',
                     'title' => 'Test Title',
                     'description' => 'Test Description',
                 ]
+            ])
+            ->assertJsonStructure([
+                'data' => ['id']
             ]);
         
-        $this->assertDatabaseHas('thematiques', ['id' => 'test-thematique']);
+        $createdId = $response->json('data.id');
+        $this->assertNotEmpty($createdId);
+        $this->assertDatabaseHas('thematiques', ['id' => $createdId, 'title' => 'Test Title']);
     }
 
     /**
@@ -68,7 +71,7 @@ class ThematiqueApiTest extends TestCase
         $response = $this->postJson('/api/thematiques', []);
 
         $response->assertStatus(422)
-            ->assertJsonValidationErrors(['id', 'title', 'description']);
+            ->assertJsonValidationErrors(['title', 'description']);
     }
 
     /**
@@ -77,7 +80,6 @@ class ThematiqueApiTest extends TestCase
     public function test_can_update_a_thematique(): void
     {
         $thematique = Thematique::create([
-            'id' => 'id-to-update',
             'title' => 'Old Title',
             'description' => 'Old Description',
         ]);
@@ -93,13 +95,14 @@ class ThematiqueApiTest extends TestCase
                 'success' => true,
                 'message' => 'Thématique mise à jour avec succès',
                 'data' => [
+                    'id' => $thematique->id,
                     'title' => 'Updated Title',
                     'description' => 'Old Description',
                 ]
             ]);
         
         $this->assertDatabaseHas('thematiques', [
-            'id' => 'id-to-update',
+            'id' => $thematique->id,
             'title' => 'Updated Title'
         ]);
     }
@@ -109,7 +112,7 @@ class ThematiqueApiTest extends TestCase
      */
     public function test_can_delete_thematique(): void
     {
-        $thematique = Thematique::factory()->create(['id' => 'to-delete']);
+        $thematique = Thematique::factory()->create();
         $map = \App\Models\Map::factory()->create(['id_thematique' => $thematique->id]);
 
         $response = $this->deleteJson("/api/thematiques/{$thematique->id}");
@@ -120,7 +123,7 @@ class ThematiqueApiTest extends TestCase
                 'message' => 'Thématique supprimée avec succès'
             ]);
 
-        $this->assertDatabaseMissing('thematiques', ['id' => 'to-delete']);
+        $this->assertDatabaseMissing('thematiques', ['id' => $thematique->id]);
         $this->assertDatabaseMissing('maps', ['id' => $map->id]);
     }
 

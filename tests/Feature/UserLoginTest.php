@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class UserLoginTest extends TestCase
@@ -54,9 +56,14 @@ class UserLoginTest extends TestCase
             ->assertJsonValidationErrors(['password']);
     }
 
-public function test_successful_login_returns_user_with_role(): void
+    public function test_successful_login_returns_user_with_role(): void
     {
-        $this->seed();
+        $role = \App\Models\Role::factory()->create();
+        $user = User::factory()->create([
+            'email' => 'admin@example.com',
+            'password' => Hash::make('password'),
+            'id_role' => $role->id,
+        ]);
 
         $response = $this->postJson('/api/auth/login', [
             'email' => 'admin@example.com',
