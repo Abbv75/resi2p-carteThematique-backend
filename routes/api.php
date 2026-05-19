@@ -50,4 +50,7 @@ Route::prefix('maps')->group(function () {
     Route::delete('/{id}', [MapController::class, 'destroy']);
 });
 
-Route::get('/geoserver-layers', [GeoserverLayerController::class, 'index']);
+Route::prefix('geoserver-layers')->group(function () {
+    Route::get('/', [GeoserverLayerController::class, 'index']);
+    Route::get('/sync', [GeoserverLayerController::class, 'sync']);
+});
