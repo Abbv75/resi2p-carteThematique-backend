@@ -100,6 +100,6 @@ class GeoserverLayerController extends Controller
             . "&bbox={bbox-epsg-3857}"
             . "&width=256&height=256"
             . "&srs=EPSG:3857"
-            . "&format=image/png";
+            . "&format=application/openlayers";
     }
 }
