@@ -45,20 +45,31 @@ class GeoserverLayerApiTest extends TestCase
     }
 
     /**
-     * Test successful sync from GeoServer.
+     * Test successful sync from GeoServer WMS GetCapabilities.
      */
     public function test_can_sync_geoserver_layers(): void
     {
-        // Fake the Http call to GeoServer rest API
+        $xmlCapabilities = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<WMS_Capabilities version="1.1.1">
+  <Capability>
+    <Layer>
+      <Layer>
+        <Name>resi2p:thematique_point</Name>
+        <Title>Thematique point</Title>
+      </Layer>
+      <Layer>
+        <Name>resi2p:thematique_polygon</Name>
+        <Title>Thematique polygon</Title>
+      </Layer>
+    </Layer>
+  </Capability>
+</WMS_Capabilities>
+XML;
+
+        // Fake the Http call to GeoServer wms GetCapabilities
         Http::fake([
-            '158.220.120.218:8080/*' => Http::response([
-                'layers' => [
-                    'layer' => [
-                        ['name' => 'resi2p:thematique_point'],
-                        ['name' => 'resi2p:thematique_polygon'],
-                    ]
-                ]
-            ], 200)
+            '158.220.120.218:8080/*' => Http::response($xmlCapabilities, 200, ['Content-Type' => 'text/xml'])
         ]);
 
         $response = $this->getJson('/api/geoserver-layers/sync');
@@ -66,9 +77,19 @@ class GeoserverLayerApiTest extends TestCase
         $response->assertStatus(200)
             ->assertJson([
                 'success' => true,
-                'message' => 'Synchronisation réussie',
+                'count' => 2,
+            ])
+            ->assertJsonStructure([
+                'success',
+                'count',
                 'data' => [
-                    'count' => 2
+                    '*' => [
+                        'id',
+                        'name',
+                        'type',
+                        'title',
+                        'openlayerUrl',
+                    ]
                 ]
             ]);
 
@@ -100,7 +121,26 @@ class GeoserverLayerApiTest extends TestCase
         $response->assertStatus(500)
             ->assertJson([
                 'success' => false,
-                'message' => 'Impossible de récupérer GeoServer',
+                'message' => 'Impossible de récupérer GetCapabilities',
+            ]);
+    }
+
+    /**
+     * Test sync fails when invalid XML is returned.
+     */
+    public function test_sync_fails_for_invalid_xml(): void
+    {
+        // Fake an invalid XML response
+        Http::fake([
+            '158.220.120.218:8080/*' => Http::response('invalid xml content', 200, ['Content-Type' => 'text/xml'])
+        ]);
+
+        $response = $this->getJson('/api/geoserver-layers/sync');
+
+        $response->assertStatus(500)
+            ->assertJson([
+                'success' => false,
+                'message' => 'XML invalide',
             ]);
     }
 }

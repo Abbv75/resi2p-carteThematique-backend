@@ -24,55 +24,77 @@ class GeoserverLayerController extends Controller
     }
 
     /**
-     * Synchronize layers from GeoServer.
+     * Synchronize layers from GeoServer WMS GetCapabilities.
      */
-    public function sync(): JsonResponse
+    public function syncFromWms(): JsonResponse
     {
         try {
-            $url = "http://158.220.120.218:8080/geoserver/rest/layers.json";
+            $url = "http://158.220.120.218:8080/geoserver/wms?service=WMS&request=GetCapabilities";
 
-            $response = Http::withBasicAuth('admin', 'M8r12p14j3')
-                ->withHeaders([
-                    'Accept' => 'application/json'
-                ])
-                ->timeout(30)
-                ->get($url);
+            $response = Http::timeout(60)->get($url);
 
             if (!$response->successful()) {
-                return $this->error('Impossible de récupérer GeoServer', null, 500);
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Impossible de récupérer GetCapabilities'
+                ], 500);
             }
 
-            $layers = $response->json()['layers']['layer'] ?? [];
+            $xml = @simplexml_load_string($response->body());
 
-            $saved = 0;
+            if (!$xml) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'XML invalide'
+                ], 500);
+            }
 
-            foreach ($layers as $layer) {
-                $name = $layer['name']; // tiger:poi
+            $layers = [];
+            $count = 0;
 
-                GeoserverLayer::updateOrCreate(
+            foreach ($xml->Capability->Layer->Layer as $layer) {
+                $name = (string) $layer->Name;
+                $title = (string) $layer->Title;
+
+                if (!$name) continue;
+
+                $workspace = explode(':', $name)[0] ?? 'default';
+                $shortName = explode(':', $name)[1] ?? $name;
+
+                $record = GeoserverLayer::updateOrCreate(
                     ['name' => $name],
                     [
-                        'type' => explode(':', $name)[0] ?? 'default',
-                        'title' => ucfirst(str_replace('_', ' ', explode(':', $name)[1] ?? $name)),
+                        'id' => (string) Str::uuid(),
+                        'type' => $workspace,
+                        'title' => $title ?: ucfirst(str_replace('_', ' ', $shortName)),
                         'openlayerUrl' => $this->buildWmsUrl($name)
                     ]
                 );
 
-                $saved++;
+                $layers[] = $record;
+                $count++;
             }
 
-            return $this->success(['count' => $saved], 'Synchronisation réussie');
+            return response()->json([
+                'success' => true,
+                'count' => $count,
+                'data' => $layers
+            ]);
         } catch (Exception $e) {
-            return $this->error('Erreur lors de la synchronisation : ' . $e->getMessage(), null, 500);
+            return response()->json([
+                'success' => false,
+                'message' => 'Erreur lors de la synchronisation : ' . $e->getMessage()
+            ], 500);
         }
     }
 
     /**
      * Build the WMS URL for a layer.
      */
-    private function buildWmsUrl(string $layer): string
+    private function buildWmsUrl($layer)
     {
-        return "http://158.220.120.218:8080/geoserver/wms?service=WMS&version=1.1.0&request=GetMap"
+        return "http://158.220.120.218:8080/geoserver/wms"
+            . "?service=WMS&version=1.1.0&request=GetMap"
             . "&layers={$layer}"
             . "&styles="
             . "&bbox={bbox-epsg-3857}"

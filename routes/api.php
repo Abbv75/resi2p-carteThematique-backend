@@ -52,5 +52,5 @@ Route::prefix('maps')->group(function () {
 
 Route::prefix('geoserver-layers')->group(function () {
     Route::get('/', [GeoserverLayerController::class, 'index']);
-    Route::get('/sync', [GeoserverLayerController::class, 'sync']);
+    Route::get('/sync', [GeoserverLayerController::class, 'syncFromWms']);
 });
