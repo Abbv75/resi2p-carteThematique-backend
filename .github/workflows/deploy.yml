@@ -3,7 +3,7 @@ name: Deploy Fier2-CarteThematique Backend
 on:
   push:
     branches:
-      - deploiement
+      - main
 
 jobs:
   deploy:
@@ -20,7 +20,7 @@ jobs:
             cd ${{ secrets.SSH_PATH }}
 
             git fetch --all
-            git reset --hard origin/deploiement
+            git reset --hard origin/main
 
             export COMPOSER_ALLOW_SUPERUSER=1
             composer install
