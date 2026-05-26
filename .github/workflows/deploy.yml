@@ -1,4 +1,4 @@
-name: Deploy Fier2-CarteThematique Backend
+name: Deploy RESI2P-CarteThematique Backend
 
 on:
   push:
