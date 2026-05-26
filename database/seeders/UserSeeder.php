@@ -18,11 +18,11 @@ class UserSeeder extends Seeder
         $standardRole = Role::where('id', 'R02')->first();
 
         User::updateOrCreate(
-            ['email' => 'bore.younous59@gmail.com'],
+            ['email' => 'admin@resi2p.fidaburkina.org.com'],
             [
-                'nom' => 'Boré',
-                'prenom' => 'Younouss',
-                'password' => Hash::make('12345678'),
+                'nom' => 'Admin',
+                'prenom' => 'Resi2p',
+                'password' => Hash::make('password'),
                 'id_role' => $adminRole->id,
             ]
         );
@@ -38,4 +38,3 @@ class UserSeeder extends Seeder
         );
     }
 }
-
